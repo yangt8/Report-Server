@@ -8,6 +8,7 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 const modelRoutes = require('./src/routes/modelRoutes');
+const hallucinationRoutes = require('./src/routes/hallucinationRoutes');
 
 app.use(cors());
 app.use(bodyParser.json({ limit: '10mb', extended: true }));
@@ -16,6 +17,7 @@ app.use(express.static(path.join(__dirname, './public')));
 
 app.use(express.json());
 app.use('/api', modelRoutes);
+app.use('/api', hallucinationRoutes);
 
 app.use(logger('dev'));
 app.use(Utilities.send404);

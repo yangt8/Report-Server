@@ -49,4 +49,27 @@ exports.getModelsNamesAndIds = async (req, res) => {
     }
 };
 
+exports.deleteModel = async (req, res) => {
+    try {
+        const modelId = req.params.id;
+        const model = await Model.findByIdAndDelete(modelId);
+        if (!model) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Model not found',
+            });
+        }
+        res.status(200).json({
+            status: 'success',
+            message: 'Model deleted successfully',
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: 'error',
+            message: 'Error deleting model',
+            error: error.message,
+        });
+    }
+};
+
 // Add more controller methods as needed

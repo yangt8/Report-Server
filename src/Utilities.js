@@ -78,7 +78,7 @@ module.exports.signAccessToken = (payload) => {
             );
         });
     } catch (error) {
-        apiResponse(res, 500, err);
+        apiResponse(res, 500, error);
     }
 };
 
