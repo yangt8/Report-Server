@@ -1,36 +1,30 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const mongoosePaginate = require('mongoose-paginate-v2');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../database_pgSql/dbconfig/sequelize-config');
 
-const ModelSchema = new Schema(
+const ModelModel = sequelize.define(
+    'Model',
     {
         name: {
-            type: String,
-            required: true,
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         openAIId: {
-            type: String,
-            required: true,
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         gptVersion: {
-            type: String,
-            required: true,
-            enum: ['3.5', '4'],
+            type: DataTypes.ENUM('3.5', '4'),
+            allowNull: false,
         },
         environment: {
-            type: String,
-            required: true,
-            enum: ['Production', 'Pre-production', 'Both'],
+            type: DataTypes.ENUM('Production', 'Pre-production', 'Both'),
+            allowNull: false,
         },
     },
-    { timestamps: { currentTime: () => Date.now() } },
+    {
+        tableName: 'models',
+        timestamps: true,
+    },
 );
 
-ModelSchema.statics.findNamesAndIds = function () {
-    return this.find({}, 'name openAIId');
-};
-
-ModelSchema.plugin(mongoosePaginate);
-
-const Model = mongoose.model('Model', ModelSchema);
-module.exports = Model;
+module.exports = ModelModel;

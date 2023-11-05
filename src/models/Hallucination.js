@@ -6,11 +6,7 @@ const Schema = mongoose.Schema;
 
 const HallucinationSchema = new Schema(
     {
-        model_id: {
-            type: Schema.Types.ObjectId,
-            ref: 'Model',
-            required: true,
-        },
+        model_id: String,
         date: {
             type: Date,
             default: Date.now,

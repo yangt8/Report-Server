@@ -1,4 +1,4 @@
-const ENV = require('./src/database/dbconfig/DB_config');
+const ENV = require('./src/database_MongoDB/dbconfig/DB_config');
 const config = {
     mongodb: {
         url: ENV.MONGO_URI,
@@ -9,7 +9,7 @@ const config = {
             //   socketTimeoutMS: 3600000,
         },
     },
-    migrationsDir: 'src/database/migrations',
+    migrationsDir: 'src/database_MongoDB/migrations',
     changelogCollectionName: 'changelog',
 };
 module.exports = config;
