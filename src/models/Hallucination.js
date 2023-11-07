@@ -12,6 +12,10 @@ const HallucinationSchema = new Schema(
 			type: Schema.Types.ObjectId,
 			required: true,
 		},
+		org_id: {
+			type: Number,
+			required: true,
+		},
 		prompt: {
 			type: String,
 			required: true,

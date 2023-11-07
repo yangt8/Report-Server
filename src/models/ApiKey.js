@@ -4,6 +4,10 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 const ApiKeySchema = new Schema(
 	{
+		org_id: {
+			type: Number,
+			require: true
+		},
 		private_key: {
 			type: String,
 			required: true,
