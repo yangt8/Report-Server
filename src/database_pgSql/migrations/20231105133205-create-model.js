@@ -3,16 +3,23 @@
 /** @type {import('sequelize-cli').Migration} */
 'use strict';
 
-'use strict';
-
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('Models', {
+        await queryInterface.createTable('models', {
             id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
                 type: Sequelize.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+            },
+            org_id: {
+                type: Sequelize.INTEGER,
+                allowNull: true,
+                references: {
+                    model: 'users_organization',
+                    key: 'id',
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL',
             },
             name: {
                 type: Sequelize.STRING,
@@ -22,7 +29,27 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            gptVersion: {
+            base_model: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            git_url: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            commit_hash: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            visibility: {
+                type: Sequelize.BOOLEAN,
+                allowNull: true,
+            },
+            description: {
+                type: Sequelize.TEXT,
+                allowNull: true,
+            },
+            gpt_version: {
                 type: Sequelize.ENUM('3.5', '4'),
                 allowNull: false,
             },
@@ -43,6 +70,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('Models');
+        await queryInterface.dropTable('models');
     },
 };

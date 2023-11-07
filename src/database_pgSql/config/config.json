@@ -2,7 +2,7 @@
     "development": {
         "username": "llm_admin",
         "password": "admin",
-        "database": "llm",
+        "database": "llm_db",
         "host": "127.0.0.1",
         "dialect": "postgres",
         "port": "5432"
@@ -10,7 +10,7 @@
     "test": {
         "username": "llm_admin",
         "password": "admin",
-        "database": "llm",
+        "database": "llm_db",
         "host": "127.0.0.1",
         "dialect": "postgres",
         "port": "5432"
@@ -18,7 +18,7 @@
     "production": {
         "username": "llm_admin",
         "password": "admin",
-        "database": "llm",
+        "database": "llm_db",
         "host": "127.0.0.1",
         "dialect": "postgres",
         "port": "5432",

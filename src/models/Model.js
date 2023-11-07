@@ -1,9 +1,20 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database_pgSql/dbconfig/sequelize-config');
 
+const Organization = require('./Organization');
+
 const ModelModel = sequelize.define(
     'Model',
     {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        org_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -12,7 +23,27 @@ const ModelModel = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        gptVersion: {
+        base_model: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        git_url: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        commit_hash: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        visibility: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        gpt_version: {
             type: DataTypes.ENUM('3.5', '4'),
             allowNull: false,
         },
@@ -26,5 +57,8 @@ const ModelModel = sequelize.define(
         timestamps: true,
     },
 );
+
+ModelModel.belongsTo(Organization, { foreignKey: 'org_id' });
+Organization.hasMany(ModelModel, { foreignKey: 'org_id' });
 
 module.exports = ModelModel;
