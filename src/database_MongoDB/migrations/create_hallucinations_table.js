@@ -37,9 +37,22 @@ module.exports = {
             const hallucinations = [];
             models.forEach((model) => {
                 for (let i = 0; i < 100; i++) {
+                    const now = new Date();
+                    const randomHours = Math.floor(Math.random() * 10); // Random hours between 0 and 9
+                    const randomMinutes = Math.floor(Math.random() * 60); // Random minutes between 0 and 59
+                    const randomSeconds = Math.floor(Math.random() * 60); // Random seconds between 0 and 59
+
+                    // Create a new date object for each hallucination
+                    const hallucinationDate = new Date(now);
+                    hallucinationDate.setHours(
+                        now.getHours() + randomHours,
+                        randomMinutes,
+                        randomSeconds,
+                    );
+
                     hallucinations.push({
-                        model_id: `${model.id}`, // Use the id from PostgreSQL as a reference
-                        date: new Date(),
+                        model_id: `${model.id}`,
+                        date: hallucinationDate,
                         prompt: `Model ${model.name} prompt #${i + 1}`,
                         bad_response: `Model ${
                             model.name

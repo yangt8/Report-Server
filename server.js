@@ -4,6 +4,20 @@ require('./src/database_MongoDB/dbconfig/DB_mongodb_connection');
 // Sequelize connection
 const sequelize = require('./src/database_pgSql/dbconfig/sequelize-config');
 
+const cron = require('node-cron');
+const exec = require('child_process').exec;
+// 每小时执行一次
+cron.schedule('0 * * * *', () => {
+    exec('node ./src/scripts/hourlyAggregation.js', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.error(`stderr: ${stderr}`);
+    });
+});
+
 const Utilities = require('./src/Utilities');
 const bodyParser = require('body-parser');
 const express = require('express');
